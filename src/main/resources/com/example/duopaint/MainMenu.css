@@ -1,0 +1,35 @@
+
+
+#playButton {
+    -fx-background-color: #53e237;
+}
+
+
+#playButton:hover {
+    -fx-background-color: #38c41c;
+}
+
+
+#createGameButton {
+    -fx-background-color: #2c8de7;
+}
+#createGameButton:hover {
+    -fx-background-color: #1671c5;
+}
+#midVBox {
+    -fx-background-color: #245195;
+}
+#selectionHBox {
+    -fx-background-color: #102f85;
+}
+#changeLeft, #changeRight {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 40px;
+    -fx-cursor: hand;
+}
+#changeLeft:hover, #changeRight:hover {
+    -fx-text-fill: #df7126;
+}

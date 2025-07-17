@@ -13,11 +13,11 @@ import java.io.IOException;
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Application.class.getResource("Scene1.fxml"));
+        Parent root = FXMLLoader.load(Application.class.getResource("MainMenu.fxml"));
         stage.setTitle("Hello World");
         Scene scene = new Scene(root);
-        //String css = getClass().getResource("hello-view.css").toExternalForm();
-        //scene.getStylesheets().add(css);
+        String css = getClass().getResource("MainMenu.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
 
