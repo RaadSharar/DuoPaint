@@ -79,3 +79,24 @@
 #menuExitButton:hover {
     -fx-background-color: orange;
 }
+#overlayHelp {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+#menuHelpVBox {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+#exitHelp {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-background-radius: 100; /* Large enough to make it fully round */
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+}
+#exitHelp:hover {
+    -fx-background-color: darkred;
+}
