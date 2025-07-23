@@ -70,6 +70,8 @@ public class MainMenuController {
     @FXML
     private ToggleGroup helpStepGroup;
 
+    private HostBroadcaster broadcaster;
+
     @FXML
     public void initialize() {
         helpStepGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
@@ -88,13 +90,26 @@ public class MainMenuController {
         });
     }
 
+    @FXML
     public void clickHelp(ActionEvent event) throws IOException {
         mainStackPane.setVisible(false);
         overlayHelp.setVisible(true);
     }
+    @FXML
     public void exitHA(ActionEvent event) throws IOException {
         mainStackPane.setVisible(true);
         overlayHelp.setVisible(false);
         //overlayAbout.setVisible(false);
+    }
+
+
+
+    @FXML
+    public void createRoomButtonPressed(ActionEvent event) {
+        if (broadcaster == null) {
+            broadcaster = new HostBroadcaster();
+            broadcaster.start();
+            System.out.println("Room created. Broadcasting...");
+        }
     }
 }
