@@ -17,10 +17,11 @@ public class Game extends Thread {
         System.err.println("Game Started");
         roundRunning = true;
         for (int i = 0; i < rounds * clients.size(); i++) {
-            if (clients.get(i).socket.getSocket().isClosed()) {
+            int I = i % clients.size();
+            if (clients.get(I).socket.getSocket().isClosed()) {
                 continue;
             }
-            int I = i % clients.size();
+
             WordChooser chooser = new WordChooser(clients.get(I).player.name);
             serverToWrite.add(new Message(Message.Type.WORD_CHOSEN, null, chooser));
             try {
