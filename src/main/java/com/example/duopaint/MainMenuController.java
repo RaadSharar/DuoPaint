@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -114,8 +115,12 @@ public class MainMenuController {
         StaticData.hostListener = new HostListener();
         StaticData.hostListener.start();
         try {
-            StaticData.hostListener.join();
+            Thread.sleep(1000);
             String hostIP = StaticData.hostListener.getHostIP();
+            if (hostIP == null) {
+                new Alert(Alert.AlertType.ERROR, "Coudn't find host").showAndWait();
+                return;
+            }
             StaticData.playerName = nameTextField.getText();
             if (StaticData.playerName.isEmpty() || StaticData.playerName == null) {
                 StaticData.playerName = "player";

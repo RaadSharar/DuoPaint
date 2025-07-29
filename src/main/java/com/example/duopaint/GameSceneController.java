@@ -112,14 +112,10 @@ public class GameSceneController {
 
     public static void updatePlayersFromServer(List<Player> listFromServer) {
         Platform.runLater(() -> {
-            players.clear();
-            for (Player p : listFromServer) {
-                Player newPlayer = new Player(p.isHost);
-                newPlayer.name = p.name;// create a fresh Player object
-                newPlayer.score = p.score;
-                players.add(newPlayer);
-            }
-           StaticData.gameSceneController.playerListView.refresh();
+            // Replace the controller’s ObservableList contents with exactly what the server sent:
+            players.setAll(listFromServer);
+            // Force the ListView to redraw (if you’re using a plain int field for score)
+            gameSceneController.playerListView.refresh();
         });
 
     }
@@ -179,5 +175,10 @@ public class GameSceneController {
             toWrite.add(new Message(Message.Type.CHAT, playerName, textField.getText()));
         }
         textField.clear();
+    }
+
+    public void showResult() {
+        players.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
+        playerListView.refresh();
     }
 }

@@ -14,7 +14,10 @@ public class Timer extends Thread {
             while (rem > 0) {
                 timeQueue.add(rem);
                 rem--;
-                Thread.sleep(1000);
+                if (!allguessed)
+                    Thread.sleep(1000);
+                else
+                    Thread.sleep(20);
             }
         } catch (InterruptedException e) {
             System.err.println("Timer interrupted");

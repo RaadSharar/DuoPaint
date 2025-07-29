@@ -33,7 +33,7 @@ class ServerRead extends Thread {
 
                     case Message.Type.CHAT -> {
                         System.err.println("chat received");
-                        if (((String)message.payload).equalsIgnoreCase(guessWord)) {
+                        if (((String)message.payload).equalsIgnoreCase(guessWord) && roundRunning == true) {
                             System.err.println("guess word received");
                             for (int i = 0; i < clients.size(); i++) if (clients.get(i).player.name.equals(message.sender)){
                                 if (!guessedCorrectly.contains(clients.get(i).player.name)) {
@@ -44,6 +44,9 @@ class ServerRead extends Thread {
                                     break  label;
                                 }
                                 break;
+                            }
+                            if (guessedCorrectly.size() == clients.size() - 1) {
+                                allguessed = true;
                             }
                             ArrayList<Player> names = new ArrayList<>();
                             for (var J : clients) {
@@ -58,6 +61,7 @@ class ServerRead extends Thread {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Client disconnected: " + socketWrapper.getSocket().getInetAddress());
         }
     }

@@ -29,5 +29,11 @@ public class Player implements Serializable {
     public String toString() {
         return name + " – Score: " + score;
     }
+
+    public Player(Player other) {
+        this.isHost = other.isHost;
+        this.name   = other.name;
+        this.score  = other.score;
+    }
 }
 

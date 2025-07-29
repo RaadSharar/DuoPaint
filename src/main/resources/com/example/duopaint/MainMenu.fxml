@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.duopaint.MainMenuController">
+<StackPane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.duopaint.MainMenuController" stylesheets="@MainMenu.css">
    <children>
-      <BorderPane fx:id="menuBG" prefHeight="642.0" prefWidth="856.0" stylesheets="@MainMenu.css">
+      <BorderPane fx:id="menuBG" prefHeight="642.0" prefWidth="856.0" >
          <center>
             <StackPane fx:id="mainStackPane" alignment="CENTER" maxHeight="276.0" maxWidth="370.0" prefHeight="276.0" prefWidth="370.0" BorderPane.alignment="CENTER">
                <opaqueInsets>

@@ -3,6 +3,7 @@ package com.example.duopaint;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,9 @@ public class GameServer extends Thread {
     }
     @Override
     public void run() {
-        ServerData.gameServer = this;
+
+
+        gameServer = this;
         try {
             clients = Collections.synchronizedList(new ArrayList<>());
             System.err.println("asas");
@@ -73,20 +76,20 @@ public class GameServer extends Thread {
             System.err.println("Server stopped");
         }
     }
-
-    /** Remove a handler (e.g. on disconnect) */
     public void removeHandler(Client handler) {
         clients.remove(handler);
         broadcastPlayerList();
     }
 
     public void startGame() {
+        System.err.println("Starting game on port " + port);
         try {
             gameStarted = true;
             serverToWrite.put(new Message(Message.Type.START, null, null));
             currentGame = new Game();
         } catch (Exception e) {
-            System.err.println("Start game failed");
+            e.printStackTrace();
+            System.err.println("Server stopped");
         }
     }
 }

@@ -118,6 +118,9 @@ public class ClientRead extends Thread {
                     case ROUND_ENDS -> {
                         isDrawing = 0;
                     }
+                    case RESULT -> {
+                        gameSceneController.showResult();
+                    }
                 }
             }
         } catch (Exception e) {

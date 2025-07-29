@@ -60,6 +60,7 @@ public class WaitingRoomController {
 
     public void requestStartGame() {
         try {
+            System.err.println("Waiting for server to start");
             StaticData.toWrite.put(new Message(Message.Type.START, null, null));
         } catch (Exception e) {
             e.printStackTrace();

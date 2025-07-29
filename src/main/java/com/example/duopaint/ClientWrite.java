@@ -12,9 +12,11 @@ public class ClientWrite extends Thread {
     public void run() {
         try {
             while (true) {
-                System.out.println("waiting for client");
+
                 Message msg = toWrite.take();
                 socketWrapper.write(msg);
+                System.out.println(msg.type.toString());
+                System.out.println("written to the server");
             }
         } catch (Exception e) {
             System.out.println("ClientWrite Exception: " + e);;
