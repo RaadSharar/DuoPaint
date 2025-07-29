@@ -15,6 +15,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -44,6 +46,12 @@ public class GameSceneController {
 
     @FXML
     public Slider widthSlider;
+
+    @FXML
+    public TextArea textArea;
+
+    @FXML
+    public TextField textField;
 
     @FXML
     public void initialize() {
@@ -144,5 +152,13 @@ public class GameSceneController {
         strokeWidth = eraserWidth;
         graphicsContext.setStroke(strokeColor);
         graphicsContext.setLineWidth(strokeWidth);
+    }
+
+    @FXML
+    public void guessSubmitted(ActionEvent event) {
+        if (isDrawing != 1) {
+
+        }
+        textField.clear();
     }
 }
