@@ -8,3 +8,9 @@
 #clearButton {
     -fx-background-image: url("trashcan.png");
 }
+#meChoosingBG {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+#otherChoosingBG {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}

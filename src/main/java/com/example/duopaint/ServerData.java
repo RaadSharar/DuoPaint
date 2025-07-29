@@ -9,6 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ServerData {
+    public static boolean wordChosen = false;
     public static boolean roundRunning = false;
     public static HostBroadcaster broadcaster;
     public static ServerSocket serverSocket;

@@ -20,8 +20,13 @@ public class GameServer extends Thread {
     }
     @Override
     public void run() {
-
-
+        if (WordFileLoader.words.isEmpty()) {
+            try {
+                WordFileLoader.loadFromResource("/com/example/duopaint/words.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         gameServer = this;
         try {
             clients = Collections.synchronizedList(new ArrayList<>());
@@ -86,7 +91,7 @@ public class GameServer extends Thread {
         try {
             gameStarted = true;
             serverToWrite.put(new Message(Message.Type.START, null, null));
-            currentGame = new Game();
+            currentGame = new Game(2);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Server stopped");

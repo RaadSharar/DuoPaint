@@ -6,19 +6,34 @@ import static com.example.duopaint.ServerData.*;
 
 public class Game extends Thread {
 
-    public Game() {
+    int rounds;
+    public Game(int rounds) {
         this.start();
+        this.rounds = rounds;
     }
 
     public void run() {
 
-        System.out.println("Game Started");
+        System.err.println("Game Started");
         roundRunning = true;
-        for (int i = 0; i < 2 * clients.size(); i++) {
+        for (int i = 0; i < rounds * clients.size(); i++) {
+            if (clients.get(i).socket.getSocket().isClosed()) {
+                continue;
+            }
+            int I = i % clients.size();
+            WordChooser chooser = new WordChooser(clients.get(I).player.name);
+            serverToWrite.add(new Message(Message.Type.WORD_CHOSEN, null, chooser));
+            try {
+                while (!wordChosen) {
+                    Thread.sleep(50);
+                    System.err.println("still waiting for choosing");
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             wow = new Timer(60);
             allguessed = false;
             timeQueue.clear();
-            int I = i % clients.size();
             areTheyDrawing.put(clients.get(I).player.name, true);
             serverToWrite.add(new Message(Message.Type.ROUND_STARTS, null, new Round(clients.get(I).player.name, guessWord)));
             timeTaken = 0;
@@ -41,6 +56,7 @@ public class Game extends Thread {
             serverToWrite.add(new Message(Message.Type.PLAYER_LIST, null, names));
             areTheyDrawing.put(clients.get(I).player.name, false);
             guessedCorrectly.clear();
+            wordChosen = false;
         }
         roundRunning = false;
         ArrayList<Player> names = new ArrayList<>();

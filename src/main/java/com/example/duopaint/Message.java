@@ -13,7 +13,8 @@ public class Message implements Serializable {
         START,
         CLEAR_CMD,
         ROUND_STARTS,
-        ROUND_ENDS, RESULT, TIME_REM
+        ROUND_ENDS, RESULT, TIME_REM, WORD_CHOSEN,
+
     }
 
     public Type type;

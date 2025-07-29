@@ -102,15 +102,21 @@ public class ClientRead extends Thread {
                                 isDrawing = 1;
                                 Platform.runLater(() -> {
                                     SguessLabel.setText(round.word);
+                                    gameSceneController.meChoosingBG.setVisible(false);
                                 });
                             } else {
                                 String wow = "";
                                 for (int i = 0; i < round.word.length(); i++) {
-                                    wow = wow + "-";
+                                    if (round.word.charAt(i) != ' ') {
+                                        wow = wow + "-";
+                                    } else {
+                                        wow = wow + " ";
+                                    }
                                 }
                                 String finalWow = wow;
                                 Platform.runLater(() -> {
                                     StaticData.SguessLabel.setText(finalWow);
+                                    gameSceneController.otherChoosingBG.setVisible(false);
                                 });
                             }
                         }
@@ -121,9 +127,24 @@ public class ClientRead extends Thread {
                     case RESULT -> {
                         gameSceneController.showResult();
                     }
+                    case WORD_CHOSEN -> {
+                        Platform.runLater(() -> {
+                            WordChooser wc = (WordChooser) message.payload;
+                            if (wc.forWhom.equals(playerName)) {
+                                gameSceneController.meChoosingBG.setVisible(true);
+                                gameSceneController.choice1.setText(wc.get(0));
+                                gameSceneController.choice2.setText(wc.get(1));
+                                gameSceneController.choice3.setText(wc.get(2));
+                            } else {
+                                gameSceneController.otherChoosingBG.setVisible(true);
+                                gameSceneController.whoIsChoosing.setText(wc.forWhom + " is choosing a word");
+                            }
+                        });
+                    }
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ClientRead Exception: " + e);;
         }
     }

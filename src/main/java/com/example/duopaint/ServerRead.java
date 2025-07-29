@@ -58,6 +58,11 @@ class ServerRead extends Thread {
                             serverToWrite.put(message);
                         }
                     }
+
+                    case WORD_CHOSEN -> {
+                        wordChosen = true;
+                        guessWord = (String) message.payload;
+                    }
                 }
             }
         } catch (Exception e) {

@@ -60,6 +60,18 @@ public class GameSceneController {
     public Label guessLabel;
 
     @FXML
+    public Label choice1, choice2, choice3;
+
+    @FXML
+    public Label whoIsChoosing;
+
+    @FXML
+    public BorderPane otherChoosingBG;
+
+    @FXML
+    public BorderPane meChoosingBG;
+
+    @FXML
     public void initialize() {
         playerListView.setItems(players);
         updatePlayersFromServer(StaticData.players);
@@ -68,13 +80,16 @@ public class GameSceneController {
         SguessLabel = guessLabel;
         StimeLabel = timeLabel;
         StextArea = textArea;
+
         widthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             strokeWidth = newVal.doubleValue();
             strokeColor = colorPicker.getValue();
             graphicsContext.setLineWidth(strokeWidth);  // update stroke width
         });
+
         graphicsContext.setLineWidth(3);
         strokeWidth = 3;
+
         playerListView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Player player, boolean empty) {
@@ -99,22 +114,34 @@ public class GameSceneController {
                 }
             }
         });
+
         clearButton.setOnMouseClicked(event -> {
             System.out.println("clear clicked!");
             // your action here
             clearImage(null);
         });
+
         eraseButton.setOnMouseClicked(event -> {
             System.out.println("erase clicked!");
             eraseButtonPressed(null);
+        });
+
+        choice1.setOnMouseClicked(event -> {
+            toWrite.add(new Message(Message.Type.WORD_CHOSEN, playerName, choice1.getText()));
+        });
+
+        choice2.setOnMouseClicked(event -> {
+            toWrite.add(new Message(Message.Type.WORD_CHOSEN, playerName, choice2.getText()));
+        });
+
+        choice3.setOnMouseClicked(event -> {
+            toWrite.add(new Message(Message.Type.WORD_CHOSEN, playerName, choice3.getText()));
         });
     }
 
     public static void updatePlayersFromServer(List<Player> listFromServer) {
         Platform.runLater(() -> {
-            // Replace the controller’s ObservableList contents with exactly what the server sent:
             players.setAll(listFromServer);
-            // Force the ListView to redraw (if you’re using a plain int field for score)
             gameSceneController.playerListView.refresh();
         });
 
@@ -132,8 +159,9 @@ public class GameSceneController {
         drawingCanvas.setOnMouseDragged(e -> {
             double x = e.getX();
             double y = e.getY();
-            if (isDrawing == 1)
-            sendDrawCommand(lastX.get(), lastY.get(), x, y, strokeColor, strokeWidth);
+            if (isDrawing == 1) {
+                sendDrawCommand(lastX.get(), lastY.get(), x, y, strokeColor, strokeWidth);
+            }
             lastX.set(x);
             lastY.set(y);
         });
@@ -141,8 +169,10 @@ public class GameSceneController {
 
     @FXML
     public void clearImage(ActionEvent event) {
-        System.out.println("clear cmd given");
-        toWrite.add(new Message(Message.Type.CLEAR_CMD, playerName, null));
+        if (isDrawing == 1) {
+            System.out.println("clear cmd given");
+            toWrite.add(new Message(Message.Type.CLEAR_CMD, playerName, null));
+        }
     }
 
     private void sendDrawCommand(double x1, double y1, double x2, double y2, Paint sc, double sw) {
@@ -181,4 +211,6 @@ public class GameSceneController {
         players.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
         playerListView.refresh();
     }
+
+
 }
