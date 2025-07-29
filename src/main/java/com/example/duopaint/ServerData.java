@@ -2,6 +2,7 @@ package com.example.duopaint;
 
 import java.net.ServerSocket;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -17,4 +18,5 @@ public class ServerData {
     public static BlockingQueue<Integer> timeQueue = new LinkedBlockingQueue<>();
     public static int timeTaken;
     public static String guessWord = "wow";
+    public static HashSet<String> guessedCorrectly = new HashSet<>();
 }

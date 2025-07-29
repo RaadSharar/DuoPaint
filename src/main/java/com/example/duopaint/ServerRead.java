@@ -16,32 +16,38 @@ class ServerRead extends Thread {
         try  {
             while (true) {
                 Message message = (Message) socketWrapper.read();
-                switch (message.type) {
+                label : switch (message.type) {
                     case Message.Type.START -> {
                         gameServer.startGame();
                     }
 
                     case Message.Type.DRAW_CMD -> {
-                        System.err.println("draw cmd received");
+                        //System.err.println("draw cmd received");
                         serverToWrite.put(message);
                     }
 
                     case Message.Type.CLEAR_CMD ->  {
-                        System.err.println("clear cmd received");
+                        //System.err.println("clear cmd received");
                         serverToWrite.put(message);
                     }
 
                     case Message.Type.CHAT -> {
                         System.err.println("chat received");
                         if (((String)message.payload).equalsIgnoreCase(guessWord)) {
+                            System.err.println("guess word received");
                             for (int i = 0; i < clients.size(); i++) if (clients.get(i).player.name.equals(message.sender)){
-                                clients.get(i).player.score += 200 + (60 - timeTaken) * 5;
-                                System.err.println(clients.get(i).player.score + " " + clients.get(i).player.name);
+                                if (!guessedCorrectly.contains(clients.get(i).player.name)) {
+                                    guessedCorrectly.add(clients.get(i).player.name);
+                                    clients.get(i).player.score += 200 + (60 - timeTaken) * 5;
+                                    System.err.println(clients.get(i).player.score + " " + clients.get(i).player.name);
+                                } else {
+                                    break  label;
+                                }
                                 break;
                             }
                             ArrayList<Player> names = new ArrayList<>();
                             for (var J : clients) {
-                                names.add(J.player);
+                                names.add(new Player(J.player.isHost, J.player.name, J.player.score));
                             }
                             serverToWrite.add(new Message(Message.Type.PLAYER_LIST, null, names));
                             serverToWrite.put(new Message(Message.Type.CHAT, null, message.sender + " has guessed the word"));

@@ -27,6 +27,9 @@ public class ClientRead extends Thread {
                     case Message.Type.NAME_PROMT -> toWrite.put(new Message(Message.Type.JOIN, playerName, null));
                     case Message.Type.PLAYER_LIST -> {
                         StaticData.players = (List<Player>) message.payload;
+                        for (Player p : StaticData.players) {
+                            System.out.println(p.name + " " + p.score);
+                        }
                         if (nowscene == 3) {
                             System.out.println(nowscene + " received player list");
                             GameSceneController.updatePlayersFromServer(StaticData.players);
@@ -52,7 +55,7 @@ public class ClientRead extends Thread {
                         });
                     }
                     case Message.Type.DRAW_CMD -> {
-                        System.out.println("draw cmd received");
+                        //System.out.println("draw cmd received");
                         Platform.runLater(() -> {
                             try {
                                Line line = (Line) message.payload;
@@ -67,7 +70,7 @@ public class ClientRead extends Thread {
                         });
                     }
                     case Message.Type.CLEAR_CMD -> {
-                        System.out.println("clear cmd received");
+                        //System.out.println("clear cmd received");
                         Platform.runLater(() -> {
                             try {
                                 graphicsContext.clearRect(0, 0, 490, 452);

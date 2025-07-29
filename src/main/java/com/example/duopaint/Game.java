@@ -33,6 +33,7 @@ public class Game extends Thread {
             serverToWrite.add(new Message(Message.Type.ROUND_ENDS, null, null));
             serverToWrite.add(new Message(Message.Type.PLAYER_LIST, null, names));
             areTheyDrawing.put(clients.get(I).player.name, false);
+            guessedCorrectly.clear();
         }
     }
 }

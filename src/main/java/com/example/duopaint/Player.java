@@ -20,6 +20,11 @@ public class Player implements Serializable {
     public Player(boolean isHost) {
         this.isHost = isHost;
     }
+    public Player(boolean isHost, String name, int score) {
+        this.isHost = isHost;
+        this.name = name;
+        this.score = score;
+    }
     @Override
     public String toString() {
         return name + " – Score: " + score;
