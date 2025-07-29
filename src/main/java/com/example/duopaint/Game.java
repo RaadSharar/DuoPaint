@@ -59,13 +59,14 @@ public class Game extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            clients.get(I).player.score += (int) Math.abs(Math.max(100 * (clients.size() / 2.0 - guessedCorrectly.size()), 100));
             System.err.println(i + "th round finished");
             ArrayList<Player> names = new ArrayList<>();
             for (var J : clients) {
                 names.add(new Player(J.player));
 
             }
-            clients.get(I).player.score += (int) Math.abs(50 * (clients.size() / 2.0 - guessedCorrectly.size()));
             serverToWrite.add(new Message(Message.Type.CLEAR_CMD, null, null));
             serverToWrite.add(new Message(Message.Type.ROUND_ENDS, null, null));
             serverToWrite.add(new Message(Message.Type.PLAYER_LIST, null, names));
