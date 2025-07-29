@@ -1,0 +1,10 @@
+#gamingBG {
+    -fx-background-image: url("waitingBG.png");
+    -fx-background-size: cover;
+}
+#drawingCanvas {
+    -fx-background-color: white;
+}
+#clearButton {
+    -fx-background-image: url("trashcan.png");
+}

@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class HostListener extends Thread {
     private final int port = 9876;
-
+    private String hostIP = "";
     @Override
     public void run() {
         try (DatagramSocket socket = new DatagramSocket(port)) {
@@ -18,8 +18,9 @@ public class HostListener extends Thread {
                 String message = new String(packet.getData(), 0, packet.getLength());
 
                 if ("HOST_AVAILABLE".equals(message)) {
-                    String hostIP = packet.getAddress().getHostAddress();
+                    hostIP = packet.getAddress().getHostAddress();
                     System.out.println("Host found at: " + hostIP);
+                    break;
                     // Here, notify your UI or logic that host is available
                 }
             }
@@ -27,5 +28,9 @@ public class HostListener extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getHostIP() {
+        return hostIP;
     }
 }

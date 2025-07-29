@@ -48,12 +48,12 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Button fx:id="playButton" alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="playButton" alignment="CENTER" mnemonicParsing="false" onAction="#joinRoomButtonPressed" prefHeight="50.0" prefWidth="300.0" text="Join Private Room" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="createGameButton" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Create Private Room" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="createGameButton" alignment="CENTER" mnemonicParsing="false" onAction="#createRoomButtonPressed" prefHeight="40.0" prefWidth="300.0" text="Create Private Room" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -99,7 +99,7 @@
                   </Button>
                </center>
                <right>
-                  <Button fx:id="menuExitButton" mnemonicParsing="false" text="Exit" textFill="RED" BorderPane.alignment="CENTER">
+                  <Button fx:id="menuExitButton" mnemonicParsing="false" onAction="#ExitButtonPressed" text="Exit" textFill="RED" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="10.0" />
                      </BorderPane.margin>

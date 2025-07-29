@@ -25,8 +25,8 @@ public class HostBroadcaster extends Thread {
 
             while (running) {
                 socket.send(packet);
-                System.out.println("Broadcasted HOST_AVAILABLE...");
-                System.out.println(InetAddress.getLocalHost().getHostAddress());
+                //System.out.println("Broadcasted HOST_AVAILABLE...");
+                //System.out.println(InetAddress.getLocalHost().getHostAddress());
                 Thread.sleep(1000); // broadcast every second
             }
 

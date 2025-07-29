@@ -1,0 +1,23 @@
+package com.example.duopaint;
+
+import java.io.IOException;
+import static com.example.duopaint.StaticData.*;
+
+public class ClientWrite extends Thread {
+    public SocketWrapper socketWrapper;
+    public ClientWrite(SocketWrapper socketWrapper) throws IOException {
+        this.socketWrapper = socketWrapper;
+        this.start();
+    }
+    public void run() {
+        try {
+            while (true) {
+                System.out.println("waiting for client");
+                Message msg = toWrite.take();
+                socketWrapper.write(msg);
+            }
+        } catch (Exception e) {
+            System.out.println("ClientWrite Exception: " + e);;
+        }
+    }
+}
