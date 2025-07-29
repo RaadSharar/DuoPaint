@@ -24,8 +24,6 @@ import java.net.*;
 import static com.example.duopaint.StaticData.*;
 
 public class MainMenuController {
-
-    public Application mainApp;
     @FXML
     private Button changeLeft;
 
@@ -119,6 +117,8 @@ public class MainMenuController {
             String hostIP = StaticData.hostListener.getHostIP();
             if (hostIP == null) {
                 new Alert(Alert.AlertType.ERROR, "Coudn't find host").showAndWait();
+                hostListener.disableSearchMode();
+                hostListener.interrupt();
                 return;
             }
             StaticData.playerName = nameTextField.getText();
@@ -151,6 +151,11 @@ public class MainMenuController {
             StaticData.isHost = 1;
             ServerData.broadcaster = new HostBroadcaster();
             ServerData.broadcaster.start();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
             System.out.println("Room created. Broadcasting...");
             new GameServer();
         } else {

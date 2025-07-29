@@ -22,7 +22,6 @@ public class Application extends javafx.application.Application {
         stage.show();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("favicon.png")));
         MainMenuController menu = loader.getController();
-        menu.mainApp = this;
         stage.setOnCloseRequest((e) -> {
             e.consume();
             try {
@@ -31,6 +30,7 @@ public class Application extends javafx.application.Application {
                 throw new RuntimeException(ex);
             }
         });
+        StaticData.mainApp = this;
     }
     public void quitgame(Stage stage) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

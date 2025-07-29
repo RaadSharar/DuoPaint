@@ -12,14 +12,15 @@ public class ClientWrite extends Thread {
     public void run() {
         try {
             while (true) {
-
                 Message msg = toWrite.take();
                 socketWrapper.write(msg);
                 System.out.println(msg.type.toString());
                 System.out.println("written to the server");
             }
+        } catch (InterruptedException e) {
+            System.out.println(" ");
         } catch (Exception e) {
-            System.out.println("ClientWrite Exception: " + e);;
+            e.printStackTrace();
         }
     }
 }

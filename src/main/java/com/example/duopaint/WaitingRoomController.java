@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -19,6 +20,9 @@ import java.util.List;
 
 public class WaitingRoomController {
     @FXML
+    public Button startButton;
+
+    @FXML
     private ListView<Player> playerListView;
 
     public static final ObservableList<Player> players =
@@ -27,7 +31,13 @@ public class WaitingRoomController {
     @FXML
     public void initialize() {
         playerListView.setItems(players);
-
+        if (StaticData.isHost == 1) {
+            startButton.setVisible(true);
+        } else {
+            startButton.setMinWidth(20);
+            startButton.setText("Ask host to start");
+            startButton.setStyle("-fx-background-color: #676767");
+        }
         playerListView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Player player, boolean empty) {

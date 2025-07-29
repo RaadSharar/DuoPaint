@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -78,7 +77,6 @@
                   <HBox prefHeight="497.0" prefWidth="151.0">
                      <children>
                         <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" />
-                        <ScrollBar fx:id="scrollBar" orientation="VERTICAL" />
                      </children>
                   </HBox>
                   <Region prefHeight="29.0" prefWidth="161.0" />

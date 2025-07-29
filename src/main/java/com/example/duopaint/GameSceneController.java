@@ -5,7 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -17,6 +19,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -203,13 +206,25 @@ public class GameSceneController {
     public void guessSubmitted(ActionEvent event) {
         if (isDrawing != 1) {
             toWrite.add(new Message(Message.Type.CHAT, playerName, textField.getText()));
+            System.out.println(playerName + " " + textField.getText() + " " + guessWord);
+            if (StaticData.editDP(textField.getText(), guessWord) == 1)  {
+                textArea.appendText("'" + textField.getText() + "'" + " is close!\n");
+            }
         }
         textField.clear();
     }
 
     public void showResult() {
-        players.sort((p1, p2) -> Integer.compare(p2.score, p1.score));
-        playerListView.refresh();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ResultScene.fxml"));
+            Scene resultScene = new Scene(loader.load());
+            StaticData.stage.setScene(resultScene);
+            StaticData.stage.show();
+            nowscene = 4;  // Optional tracking
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load result scene");
+        }
     }
 
 

@@ -21,7 +21,7 @@ public class ClientRead extends Thread {
     }
     public void run() {
         try {
-            while (true) {
+            outside: while (true) {
                 Message message = (Message) socketWrapper.read();
                 switch (message.type) {
                     case Message.Type.NAME_PROMT -> toWrite.put(new Message(Message.Type.JOIN, playerName, null));
@@ -31,7 +31,7 @@ public class ClientRead extends Thread {
                             System.out.println(p.name + " " + p.score);
                         }
                         if (nowscene == 3) {
-                            System.out.println(nowscene + " received player list");
+                            //System.out.println(nowscene + " received player list");
                             GameSceneController.updatePlayersFromServer(StaticData.players);
                         } else {
                             WaitingRoomController.updatePlayersFromServer(StaticData.players);
@@ -98,6 +98,7 @@ public class ClientRead extends Thread {
                     case Message.Type.ROUND_STARTS -> {
                         if (message.payload instanceof Round) {
                             Round round = (Round) message.payload;
+                            guessWord = round.word;
                             if (round.artist.equals(playerName)) {
                                 isDrawing = 1;
                                 Platform.runLater(() -> {
@@ -105,6 +106,7 @@ public class ClientRead extends Thread {
                                     gameSceneController.meChoosingBG.setVisible(false);
                                 });
                             } else {
+                                guessWord = round.word;
                                 String wow = "";
                                 for (int i = 0; i < round.word.length(); i++) {
                                     if (round.word.charAt(i) != ' ') {
@@ -123,9 +125,13 @@ public class ClientRead extends Thread {
                     }
                     case ROUND_ENDS -> {
                         isDrawing = 0;
+                        hint1 = -1;
+                        hint2 = -1;
                     }
                     case RESULT -> {
-                        gameSceneController.showResult();
+                        Platform.runLater(() -> {
+                            gameSceneController.showResult();
+                        });
                     }
                     case WORD_CHOSEN -> {
                         Platform.runLater(() -> {
@@ -141,7 +147,46 @@ public class ClientRead extends Thread {
                             }
                         });
                     }
+
+                    case HINT1 ->  {
+                        if (isDrawing != 1) {
+                            Platform.runLater(() -> {
+                                hint1 = Integer.parseInt((String) message.payload);
+                                String wow = "";
+                                for (int i = 0; i < guessWord.length(); i++) {
+                                    if (guessWord.charAt(i) == ' ' || i == hint1 || i == hint2) {
+                                        wow = wow + guessWord.charAt(i);
+                                    } else {
+                                        wow = wow + "-";
+                                    }
+                                }
+                                gameSceneController.guessLabel.setText(wow);
+                            });
+                        }
+                    }
+                    case HINT2 ->  {
+                        if (isDrawing != 1) {
+                            Platform.runLater(() -> {
+                                hint2 = Integer.parseInt((String) message.payload);
+                                String wow = "";
+                                for (int i = 0; i < guessWord.length(); i++) {
+                                    if (guessWord.charAt(i) == ' ' || i == hint1 || i == hint2) {
+                                        wow = wow + guessWord.charAt(i);
+                                    } else {
+                                        wow = wow + "-";
+                                    }
+                                }
+                                gameSceneController.guessLabel.setText(wow);
+                            });
+                        }
+                    }
+
+                    case MENU -> {
+                        clientWrite.interrupt();
+                        break outside;
+                    }
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();

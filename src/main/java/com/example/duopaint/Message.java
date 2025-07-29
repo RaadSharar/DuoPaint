@@ -14,7 +14,7 @@ public class Message implements Serializable {
         CLEAR_CMD,
         ROUND_STARTS,
         ROUND_ENDS, RESULT, TIME_REM, WORD_CHOSEN,
-
+        HINT1, HINT2, MENU
     }
 
     public Type type;

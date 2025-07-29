@@ -57,7 +57,8 @@ public class GameServer extends Thread {
                     }
                 }
             });
-            new ServerWrite().start();
+            serverWrite = new ServerWrite();
+            serverWrite.start();
             acceptClientThread.start();
 
         } catch (IOException e) {
