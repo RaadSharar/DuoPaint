@@ -54,12 +54,20 @@ public class GameSceneController {
     public TextField textField;
 
     @FXML
+    public Label timeLabel;
+
+    @FXML
+    public Label guessLabel;
+
+    @FXML
     public void initialize() {
         playerListView.setItems(players);
         updatePlayersFromServer(StaticData.players);
         graphicsContext = drawingCanvas.getGraphicsContext2D();
         setupDrawing();
-
+        SguessLabel = guessLabel;
+        StimeLabel = timeLabel;
+        StextArea = textArea;
         widthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             strokeWidth = newVal.doubleValue();
             strokeColor = colorPicker.getValue();
@@ -103,7 +111,17 @@ public class GameSceneController {
     }
 
     public static void updatePlayersFromServer(List<Player> listFromServer) {
-        Platform.runLater(() -> players.setAll(listFromServer));
+        Platform.runLater(() -> {
+            players.clear();
+            for (Player p : listFromServer) {
+                Player newPlayer = new Player(p.isHost);
+                newPlayer.name = p.name;// create a fresh Player object
+                newPlayer.score = p.score;
+                players.add(newPlayer);
+            }
+           StaticData.gameSceneController.playerListView.refresh();
+        });
+
     }
 
 
@@ -118,6 +136,7 @@ public class GameSceneController {
         drawingCanvas.setOnMouseDragged(e -> {
             double x = e.getX();
             double y = e.getY();
+            if (isDrawing == 1)
             sendDrawCommand(lastX.get(), lastY.get(), x, y, strokeColor, strokeWidth);
             lastX.set(x);
             lastY.set(y);
@@ -157,7 +176,7 @@ public class GameSceneController {
     @FXML
     public void guessSubmitted(ActionEvent event) {
         if (isDrawing != 1) {
-
+            toWrite.add(new Message(Message.Type.CHAT, playerName, textField.getText()));
         }
         textField.clear();
     }

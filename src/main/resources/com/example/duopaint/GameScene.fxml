@@ -81,7 +81,8 @@
                         <ScrollBar fx:id="scrollBar" orientation="VERTICAL" />
                      </children>
                   </HBox>
-                  <TextField fx:id="textField" editable="false" onAction="#guessSubmitted" />
+                  <Region prefHeight="29.0" prefWidth="161.0" />
+                  <TextField fx:id="textField" onAction="#guessSubmitted" />
                </children>
               </VBox>
           </right>
@@ -107,17 +108,30 @@
          <top>
             <VBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="42.0" prefWidth="878.0" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="878.0" style="-fx-background-color: white;">
+                  <HBox prefHeight="58.0" prefWidth="878.0">
+                     <children>
+                        <ImageView fitHeight="38.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@logo.gif" />
+                           </image>
+                        </ImageView>
+                     </children></HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="878.0" style="-fx-background-color: white;">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@clock.gif" />
                            </image>
                         </ImageView>
-                        <Label text="60">
+                        <Label fx:id="timeLabel" text="60">
                            <font>
                               <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Region prefHeight="54.0" prefWidth="286.0" />
+                        <Label fx:id="guessLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="146.0" text="Label" textAlignment="JUSTIFY">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
                            </font>
                         </Label>
                      </children></HBox>

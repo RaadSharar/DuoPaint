@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class GameServer extends Thread {
             System.err.println("asas");
             serverSocket = new ServerSocket(port);
             System.err.println("Server listening on port " + port);
+            areTheyDrawing = new HashMap<>();
             Thread acceptClientThread = new Thread(() -> {
                 while (!gameStarted) {
                     try {
@@ -35,6 +37,7 @@ public class GameServer extends Thread {
                         handler.socket.write(new Message(Message.Type.NAME_PROMT, null, null));
                         Message namemsg = (Message) handler.socket.read();
                         handler.player.name = namemsg.sender;
+                        areTheyDrawing.put(namemsg.sender, false);
                         System.err.println("New name message from " + namemsg.sender);
                         handler.start();
                         Thread.sleep(50);

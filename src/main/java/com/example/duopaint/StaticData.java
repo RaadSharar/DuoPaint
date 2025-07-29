@@ -2,6 +2,8 @@ package com.example.duopaint;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -29,4 +31,8 @@ public class StaticData {
     public static GraphicsContext graphicsContext;
     public static Paint strokeColor = Color.BLACK;
     public static double strokeWidth;
+    public static Label SguessLabel;
+    public static String guessWord;
+    public static TextArea StextArea;
+    public static Label StimeLabel;
 }

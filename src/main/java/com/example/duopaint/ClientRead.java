@@ -28,6 +28,7 @@ public class ClientRead extends Thread {
                     case Message.Type.PLAYER_LIST -> {
                         StaticData.players = (List<Player>) message.payload;
                         if (nowscene == 3) {
+                            System.out.println(nowscene + " received player list");
                             GameSceneController.updatePlayersFromServer(StaticData.players);
                         } else {
                             WaitingRoomController.updatePlayersFromServer(StaticData.players);
@@ -76,6 +77,43 @@ public class ClientRead extends Thread {
                                 System.err.println("clear failed");
                             }
                         });
+                    }
+                    case Message.Type.CHAT -> {
+                        Platform.runLater(() -> {
+                            if (message.sender == null) {
+                                StextArea.appendText((String) message.payload + "\n");
+                            } else {
+                                StextArea.appendText(message.sender + ": " + message.payload + "\n");
+                            }
+                        });
+                    }
+                    case Message.Type.TIME_REM ->  {
+                        Platform.runLater(() -> {
+                            StimeLabel.setText((String) message.payload);
+                        });
+                    }
+                    case Message.Type.ROUND_STARTS -> {
+                        if (message.payload instanceof Round) {
+                            Round round = (Round) message.payload;
+                            if (round.artist.equals(playerName)) {
+                                isDrawing = 1;
+                                Platform.runLater(() -> {
+                                    SguessLabel.setText(round.word);
+                                });
+                            } else {
+                                String wow = "";
+                                for (int i = 0; i < round.word.length(); i++) {
+                                    wow = wow + "-";
+                                }
+                                String finalWow = wow;
+                                Platform.runLater(() -> {
+                                    StaticData.SguessLabel.setText(finalWow);
+                                });
+                            }
+                        }
+                    }
+                    case ROUND_ENDS -> {
+                        isDrawing = 0;
                     }
                 }
             }

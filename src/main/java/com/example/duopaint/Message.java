@@ -11,7 +11,9 @@ public class Message implements Serializable {
         DRAW_CMD,
         NAME_PROMT,
         START,
-        CLEAR_CMD
+        CLEAR_CMD,
+        ROUND_STARTS,
+        ROUND_ENDS, TIME_REM
     }
 
     public Type type;
