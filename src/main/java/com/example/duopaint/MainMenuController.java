@@ -179,4 +179,16 @@ public class MainMenuController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void clickAbout(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About Skribbl.io");
+        alert.setHeaderText("Skribbl.io- Local multiplayer drawing and guessing game");
+        alert.setContentText("Version 0.5f (alpha)\n" +
+                "Developed by Raad Sharar and Md Nayem Sarker\n" +
+                "© 1-2 Term Project");
+
+        alert.showAndWait();
+    }
 }

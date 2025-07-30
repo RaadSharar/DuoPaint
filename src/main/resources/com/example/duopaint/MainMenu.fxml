@@ -92,7 +92,7 @@
                   </Button>
                </left>
                <center>
-                  <Button fx:id="menuAboutButton" mnemonicParsing="false" text="About" BorderPane.alignment="CENTER">
+                  <Button fx:id="menuAboutButton" mnemonicParsing="false" onAction="#clickAbout" text="About" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

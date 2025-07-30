@@ -28,10 +28,10 @@
             </StackPane>
          </left>
          <right>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="642.0" prefWidth="133.0" BorderPane.alignment="CENTER">
                <children>
-                  <Region prefHeight="602.0" prefWidth="100.0" />
-                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#startGameClicked" prefHeight="46.0" prefWidth="100.0" style="-fx-background-color: Lime;" text="Start" textFill="WHITE">
+                  <Region prefHeight="598.0" prefWidth="117.0" />
+                  <Button fx:id="startButton" mnemonicParsing="false" onAction="#startGameClicked" prefHeight="45.0" prefWidth="145.0" style="-fx-background-color: Lime;" text="Start" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />
                      </font>
